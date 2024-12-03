@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title> Formulario de Registro </title>
+    <title>Formulario de Registro</title>
     <!--Unos metadatos-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Juan Manuel">
     <meta name="keywords" content="Formulario de Registro">
-    <!-- Link hacia el archivo de estilos css -->
+    <!--Css y Js-->
     <link rel="stylesheet" href="css/register.css">
-    <script src="/js/register.js"></script>
+    <script src="js/register.js" defer></script>
 </head>
 
 <body>
@@ -20,15 +20,18 @@
                 <div class="titulo">
                     Registro
                 </div>
-                <form id="registerForm">
+                <form id="registerForm" onsubmit="return crearUsuario(event)">
                     <input type="text" id="nombre" placeholder="Nombre y apellidos" required>
                     <input type="text" placeholder="DNI" id="dni" required>
                     <input type="text" id="usuario" placeholder="Usuario" required>
-                    <input type="current-password" placeholder="Contraseña" id="contrasena" required>
+                    <input type="password" placeholder="Contraseña" id="contrasena" required>
                     <input type="text" id="direccion" placeholder="Dirección" required>
                     <input type="email" placeholder="Email@" id="email" required>
-                    <button type="submit"title="Ingresar" onclick="crearUsuario()"id="ingresar">Registrate</button>
+                    <button type="submit" title="Ingresar" id="ingresar">Registrate</button>
                 </form>
+                <!--Contenedor del fallo-->
+                <div id="mensajeError" style="color: red;"></div>
+                <div id="mensajeCorrecto" style="color: rgb(0, 255, 0);"></div>
                 <div class="pie-form">
                     <a href="login.html">¿Ya tienes cuenta? Accede</a>
                 </div>

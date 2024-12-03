@@ -10,7 +10,6 @@ function iniciarSesion(event) {
 
     // Verificar si el usuario es "admin" con credenciales específicas
     if (usuarioInput === "admin" && passwordInput === "admin") {
-
         mensajeDivCorrecto.innerHTML = "Inicio de sesión exitoso. Bienvenido, Admin!";
         window.location.href = "home.html";  
         return;
