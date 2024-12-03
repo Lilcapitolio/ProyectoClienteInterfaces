@@ -16,8 +16,7 @@
             <div id="login">
                 <nav>
                     <a class="boton" href="home.html">Inicio</a>
-                    <a class="boton" href="#">Calificaciones</a>
-                    <a class="boton" href="home.html">Panel Alumno</a>
+                    <a class="boton" href="notas.html">Calificaciones</a>
                     <a class="boton" href="profe.html">Panel Profesor</a>
                     <a class="boton" href="admin.html">Panel Administrador</a>
                     <a class="boton" href="index.html">Log Out</a>
@@ -25,12 +24,16 @@
                 <section>
                     <h1>Panel Administrador</h1>
                     <div id="contenido">
-                        <p>Bienvenido al panel del administrador. Aquí puedes gestionar usuarios y configuraciones.</p>                        </div>
+                     <!-- Este div se llenará con la tabla de usuarios -->
+                        <div id="tablaUsuarios"></div>
                     </div>
                 </section>
             </div>
         </div>
     </div>
+
+    <!-- Incluir el archivo admin.js -->
+    <script src="js/admin.js"></script>
 </body>
 
 </html>

@@ -11,9 +11,10 @@ function iniciarSesion(event) {
     // Verificar si el usuario es "admin" con credenciales específicas
     if (usuarioInput === "admin" && passwordInput === "admin") {
         mensajeDivCorrecto.innerHTML = "Inicio de sesión exitoso. Bienvenido, Admin!";
-        window.location.href = "home.html";  
+        window.location.href = "admin.html";  // Redirigir al panel de administración
         return;
     }
+
     // Obtener la lista de usuarios del localStorage
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
@@ -24,8 +25,15 @@ function iniciarSesion(event) {
 
     // Verificar si el usuario fue encontrado
     if (usuarioEncontrado) {
+        // Si el usuario no está verificado, mostramos un mensaje de error
+        if (!usuarioEncontrado.verificado) {
+            mensajeDivError.innerHTML = "Tu cuenta aún no está verificada. Por favor, contacta con un administrador.";
+            return;
+        }
+
+        // Si el usuario está verificado, se realiza el inicio de sesión
         mensajeDivCorrecto.innerHTML = "Inicio de sesión exitoso. Bienvenido, " + usuarioEncontrado.nombre + "!";
-        window.location.href = "home.html"; 
+        window.location.href = "home.html";
     } else {
         mensajeDivError.innerHTML = "Usuario o contraseña incorrectos.";
     }
