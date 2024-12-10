@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <title>Panel de Profesor</title>
+    <meta charset="utf-8">
+    <title>Crear y Seleccionar Preguntas para Examen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/profe.css">
+</head>
+
+<body>
+    <div id="contenedor">
+        <div id="central">
+            <div id="examenProfe">
+                <nav>
+                    <a class="boton" href="home.html">Inicio</a>
+                    <a class="boton" href="notas.html">Calificaciones</a>
+                    <a class="boton" href="profe.html">Panel Profesor</a>
+                    <a class="boton" href="admin.html">Panel Administrador</a>
+                    <a class="boton" href="index.html">Log Out</a>
+                </nav>
+
+                <!-- Crear Preguntas -->
+                <section>
+                    <h1>Crear Preguntas</h1>
+                    <div id="contenido">
+                        <form id="formularioExamen">
+                            <label for="pregunta">Pregunta:</label>
+                            <input type="text" id="pregunta" name="pregunta" required>
+                            <br>
+
+                            <label>Opciones de Respuesta:</label>
+                            <div id="opciones">
+                                <div>
+                                    <input type="radio" name="respuestaCorrecta" value="opcion1" required>
+                                    <input type="text" class="respuesta" placeholder="Opción 1" required>
+                                </div>
+                                <div>
+                                    <input type="radio" name="respuestaCorrecta" value="opcion2">
+                                    <input type="text" class="respuesta" placeholder="Opción 2" required>
+                                </div>
+                                <div>
+                                    <input type="radio" name="respuestaCorrecta" value="opcion3">
+                                    <input type="text" class="respuesta" placeholder="Opción 3" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="boton">Agregar Pregunta</button>
+                        </form>
+                        <a class="boton" href="examenProfe2.html" value="examen">Crear Examen</a>
+                    </div>
+                    <div id="mensajeExamenCreado">Pregunta creada con éxito</div>
+
+                </section>
+
+    <script src="js/examenProfe.js"></script>
+  
+</body>
+
+</html>

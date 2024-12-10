@@ -7,7 +7,7 @@ body {
     background-color: #0f4c75;
 }
 
-#contenedor {
+#contenedor, #preguntasContainer {
     display: flex;
     justify-content: center;
     min-width: 100vw;
@@ -82,7 +82,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
 }
 
 .boton {
@@ -112,7 +112,18 @@ h1 {
     background-color: #000000;
     color:#bbe1fa;
 }
+/*Apartado de crear examenes y su css*/
 
+
+#mensajeExamenCreado {
+    display: none;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
 .pie-form {
     font-size: 90%;
     text-align: center;    
@@ -149,4 +160,10 @@ h1 {
 .autor{
     font-size: 80%;
     color: cornflowerblue;
+}
+.test{
+    font-size: 2em;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 5px;
 }

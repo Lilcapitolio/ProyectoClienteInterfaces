@@ -7,15 +7,12 @@ function mostrarUsuarios() {
         tablaDiv.innerHTML = "<p>No hay usuarios registrados.</p>";
         return;
     }
-    // Crear la tabla
     let tabla = '<table border="1" style="width: 100%; border-collapse: collapse;">';
-    tabla += '<thead><tr><th>ID</th><th>Nombre</th><th>DNI</th><th>Usuario</th><th>Contraseña</th><th>Dirección</th><th>Email</th><th>Verificado</th></tr></thead>';
+    tabla += '<thead><tr><th>ID</th><th>Nombre</th><th>DNI</th><th>Usuario</th><th>Contraseña</th><th>Dirección</th><th>Email</th><th>Verificado</th><th>Rol</th></tr></thead>';
     tabla += '<tbody>';
-    let index;
     usuarios.forEach((usuario, index) => {
-        // Crear el checkbox, si el usuario está verificado, se marca el checkbox
-        //Creamos el checkbox aqui porque es mejor, que establecer directamente que es false, creo que es mas seguro
         const verificado = usuario.verificado ? 'checked' : '';
+        const rol = usuario.rol || 'alumno'; // Asignar un rol por defecto si no existe
 
         tabla += `<tr>
                     <td>${index + 1}</td>
@@ -26,6 +23,13 @@ function mostrarUsuarios() {
                     <td>${usuario.direccion}</td>
                     <td>${usuario.email}</td>
                     <td><input type="checkbox" class="verificado" data-index="${index}" ${verificado}></td>
+                    <td>
+                        <select class="rol" data-index="${index}">
+                            <option value="alumno" ${rol === 'alumno' ? 'selected' : ''}>Alumno</option>
+                            <option value="profesor" ${rol === 'profesor' ? 'selected' : ''}>Profesor</option>
+                            <option value="administrador" ${rol === 'administrador' ? 'selected' : ''}>Administrador</option>
+                        </select>
+                    </td>
                   </tr>`;
     });
     tabla += '</tbody>';
@@ -36,12 +40,24 @@ function mostrarUsuarios() {
     // Añadir un evento para manejar el cambio de estado de los checkboxes
     const checkboxes = document.querySelectorAll('.verificado');
     checkboxes.forEach(checkbox => {
-        //El funcionamiento con change lo he sacado de un post de stackoverflow que me ha solucionado mucho la vida la verdad
         checkbox.addEventListener('change', function() {
             const index = this.getAttribute('data-index');
             const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
             // Cambiar el estado de verificación del usuario
             usuarios[index].verificado = this.checked;
+            // Guardar de nuevo en el localStorage
+            localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        });
+    });
+
+    // Añadir un evento para manejar el cambio de rol
+    const selects = document.querySelectorAll('.rol');
+    selects.forEach(select => {
+        select.addEventListener('change', function() {
+            const index = this.getAttribute('data-index');
+            const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+            // Cambiar el rol del usuario
+            usuarios[index].rol = this.value;
             // Guardar de nuevo en el localStorage
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
         });

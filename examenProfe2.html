@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <title>Panel de Profesor</title>
+    <meta charset="utf-8">
+    <title>Crear y Seleccionar Preguntas para Examen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/profe.css">
+</head>
+
+<body>
+    <div id="contenedor">
+        <div id="central">
+            <div id="examenProfe">
+                <nav>
+                    <a class="boton" href="home.html">Inicio</a>
+                    <a class="boton" href="notas.html">Calificaciones</a>
+                    <a class="boton" href="profe.html">Panel Profesor</a>
+                    <a class="boton" href="admin.html">Panel Administrador</a>
+                    <a class="boton" href="index.html">Log Out</a>
+                </nav>
+
+                <!-- Crear Examen -->
+                <section>
+                    <h1>Crear Examen</h1>
+                    <div id="contenido">
+                        <form id="formularioCrearExamen">
+                            <label class="test">Listado de preguntas disponibles</label>
+                            <div id="preguntasContainer">
+                                <table id="tablaPreguntas" border="2" cellspacing="0" cellpadding="5">
+                                    <thead>
+                                        <tr>
+                                            <th>Pregunta</th>
+                                            <th>Opciones</th>
+                                            <th>Respuesta Correcta</th>
+                                            <th>Seleccionar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Las preguntas se cargarán aquí -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button type="submit" class="boton">Guardar Examen</button>
+                            <br>
+                            <a class="boton" href="examenProfe.html" value="examen">Volver</a>
+
+                        </form>
+                    </div>
+                    <!-- Mensaje de éxito debajo del formulario -->
+                    <div id="mensajeExamenCreado">Examen creado con éxito</div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="js/examenProfe2.js"></script>
+</body>
+
+</html>
