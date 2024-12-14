@@ -10,6 +10,8 @@
     <meta name="keywords" content="Inicio una vez logeado">
     <!-- Link hacia el archivo de estilos css -->
     <link rel="stylesheet" href="css/home.css">
+    <script src="js/home.js"></script>
+    <script src="js/logout.js"></script>
 </head>
 
 <body>
@@ -21,7 +23,7 @@
                     <a class="boton" href="notas.html">Calificaciones</a>
                     <a class="boton" href="profe.html">Panel profesor</a>
                     <a class="boton" href="admin.html">Panel Administrador</a>
-                    <a class="boton" href="index.html">Log Out</a>
+                    <a class="boton" id="logoutButton" onclick=cerrarSesion() href="index.html">Log Out</a>
                 </nav>
                 <section>
                     <h1>Panel de Alumno</h1>

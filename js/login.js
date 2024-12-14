@@ -8,15 +8,30 @@ function iniciarSesion(event) {
     const mensajeDivError = document.getElementById("mensajeError");
     const mensajeDivCorrecto = document.getElementById("mensajeCorrecto");
 
+    // Limpiar mensajes de error y éxito anteriores
+    mensajeDivError.innerHTML = '';
+    mensajeDivCorrecto.innerHTML = '';
+
     // Verificar si el usuario es "admin" con credenciales específicas
     if (usuarioInput === "admin" && passwordInput === "admin") {
         mensajeDivCorrecto.innerHTML = "Inicio de sesión exitoso. Bienvenido, Admin!";
+        localStorage.setItem("usuarioActivo", JSON.stringify({
+            usuario: "admin",
+            contrasena: "admin",
+            rol: "administrador"
+        }));
         window.location.href = "admin.html";  // Redirigir al panel de administración
         return;
     }
 
     // Obtener la lista de usuarios del localStorage
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    // Verificar si hay usuarios en el localStorage
+    if (usuarios.length === 0) {
+        mensajeDivError.innerHTML = "No hay usuarios registrados.";
+        return;
+    }
 
     // Buscar el usuario en la lista
     const usuarioEncontrado = usuarios.find(
@@ -33,8 +48,22 @@ function iniciarSesion(event) {
 
         // Si el usuario está verificado, se realiza el inicio de sesión
         mensajeDivCorrecto.innerHTML = "Inicio de sesión exitoso. Bienvenido, " + usuarioEncontrado.nombre + "!";
-        window.location.href = "home.html";
+
+        // Guardar el usuario activo en localStorage
+        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioEncontrado));
+
+        // Verificar el rol del usuario y redirigir según corresponda
+        if (usuarioEncontrado.rol === "administrador") {
+            window.location.href = "admin.html";  // Redirigir al panel de administrador
+        } else if (usuarioEncontrado.rol === "profesor") {
+            window.location.href = "profe.html"; // Redirigir al panel de profesor
+        } else if (usuarioEncontrado.rol === "alumno") {
+            window.location.href = "home.html"; // Redirigir al panel del estudiante
+        } else {
+            alert("Rol no reconocido.");
+        }
     } else {
+        // Si no se encuentra el usuario o la contraseña no es correcta
         mensajeDivError.innerHTML = "Usuario o contraseña incorrectos.";
     }
 }
