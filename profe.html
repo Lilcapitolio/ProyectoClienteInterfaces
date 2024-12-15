@@ -19,18 +19,19 @@
         <div id="central">
             <div id="login">
                 <nav>
+                    <img class="imagen" src="img/2.png">
                     <a class="boton" href="home.html">Inicio</a>
                     <a class="boton" href="notas.html">Calificaciones</a>
                     <a class="boton" href="profe.html">Panel Profesor</a>
                     <a class="boton" href="admin.html">Panel Administrador</a>
-                    <a class="boton" id="logoutButton" onclick=cerrarSesion() href="index.html">Log Out</a>
+                    <a id="logoutButton" onclick=cerrarSesion() href="index.html">Log Out</a>
                 </nav>
                 <section>
                     <h1>Panel Profesor</h1>
                     <div id="contenido">
                         <div id="tablaNotas"></div>
                         <p>Bienvenido al panel del profesor. Aquí puedes gestionar las calificaciones y los exámenes.</p>
-                        <a class="boton" href="examenProfe.html" value="examen">Crear Examen</a>
+                        <a id="examen" href="examenProfe.html">Crear Examen</a>
                             <div id="mostrarDatos">
                         </div>
                     </div>
@@ -38,6 +39,9 @@
             </div>
         </div>
     </div>
+    <footer class="inferior">
+        Todos los derechos reservados por el autor de esta página web. Juan Manuel Zafra Hernández
+    </footer>
 </body>
 
 </html>

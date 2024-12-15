@@ -86,14 +86,55 @@ h1 {
 }
 
 .boton {
-   display: inline-block;
-    padding: 10px 20px;
-    background-color: #0f76bb;
-    color: white;
+    display: inline-block;
+     padding: 10px 20px;
+     background-color: #0f76bb;
+     color: white;
+     text-decoration: none;
+     transition: background-color 0.3s, transform 0.3s; 
+     border-radius: 5px;
+     margin-bottom: 5px;
+     cursor: pointer;
+
+ }
+ .boton:hover {
+     background-color: #000000;
+     transform: scale(1.15);
+     color:#bbe1fa;
+ }
+ #logoutButton{
+    display: inline-block;
+    padding: 15px 30px; 
+    background-color: #000000fb; 
+    color: white; 
     text-decoration: none;
     border-radius: 5px;
+    font-size: 18px; 
+    transition: background-color 0.3s, transform 0.3s; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
-#login {
+#logoutButton:hover{
+    background-color: #911911; 
+    color: #bbe1fa; 
+    transform: scale(1.15);
+}
+ #examen{
+    display: inline-block;
+    padding: 15px 30px; 
+    background-color: #0b881bfb; 
+    color: white; 
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px; 
+    transition: background-color 0.3s, transform 0.3s; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+#examen:hover{
+    background-color: #911911; 
+    color: #bbe1fa; 
+    transform: scale(1.15);
+}
+ #login {
     width: 100%;
     padding: 50px 30px;
     background-color: #3282b8;
@@ -101,16 +142,12 @@ h1 {
     -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
     -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
     box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
-    
+
     border-radius: 3px 3px 3px 3px;
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;
     
     box-sizing: border-box;
-}
-.boton:hover {
-    background-color: #000000;
-    color:#bbe1fa;
 }
 /*Apartado de crear examenes y su css*/
 #mensajePreguntaCreada {
@@ -132,6 +169,27 @@ h1 {
     border-radius: 5px;
     text-align: center;
 }
+.imagen{  
+    width: 75px;
+}
+/*Aquí los diseños de la tabla que generamos en js*/
+table {
+    border: 10px outset #0f76bb;
+    width: 80%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #080000;
+    align-items: center;
+}
+
+th {
+    background-color: #1f6fa4;
+}
+
 .pie-form {
     font-size: 90%;
     text-align: center;    

@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     verificarAccesoPagina(rolesPermitidos);
 });
 
-
 // Función para mostrar la tabla de usuarios
 function mostrarUsuarios() {
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
@@ -76,21 +75,21 @@ function mostrarUsuarios() {
         tablaDiv.innerHTML = "<p>No hay usuarios registrados.</p>";
         return;
     }
-    let tabla = '<table border="1" style="width: 100%; border-collapse: collapse;">';
+    let tabla = '<table border="1" style="width: 80%; border-collapse: collapse; font-size: 12px; margin: 0 auto;">';
     tabla += '<thead><tr><th>ID</th><th>Nombre</th><th>DNI</th><th>Usuario</th><th>Contraseña</th><th>Dirección</th><th>Email</th><th>Verificado</th><th>Rol</th></tr></thead>';
     tabla += '<tbody>';
     usuarios.forEach((usuario, index) => {
         const verificado = usuario.verificado ? 'checked' : '';
-        const rol = usuario.rol = 'alumno'; // Asignar un rol por defecto si no existe, el cual tiene un bug, y es que aún como esta programado, no auto asigna el rol de alumno, no se porque la verdad lo dejare para la 1.1
+        const rol = usuario.rol || 'alumno'; // Asignar rol por defecto si no existe
 
         tabla += `<tr>
                     <td>${index + 1}</td>
-                    <td>${usuario.nombre}</td>
-                    <td>${usuario.dni}</td>
+                    <td><input type="text" class="editable nombre" data-index="${index}" value="${usuario.nombre}"></td>
+                    <td><input type="text" class="editable dni" data-index="${index}" value="${usuario.dni}"></td>
                     <td>${usuario.usuario}</td>
-                    <td>${usuario.contrasena}</td>
-                    <td>${usuario.direccion}</td>
-                    <td>${usuario.email}</td>
+                    <td><input type="password" class="editable contrasena" data-index="${index}" value="${usuario.contrasena}"></td>
+                    <td><input type="text" class="editable direccion" data-index="${index}" value="${usuario.direccion}"></td>
+                    <td><input type="email" class="editable email" data-index="${index}" value="${usuario.email}"></td>
                     <td><input type="checkbox" class="verificado" data-index="${index}" ${verificado}></td>
                     <td>
                         <select class="rol" data-index="${index}">
@@ -105,6 +104,19 @@ function mostrarUsuarios() {
     tabla += '</table>';
     // Insertar la tabla en el div
     tablaDiv.innerHTML = tabla;
+
+    // Añadir un evento para manejar el cambio de los campos editables
+    const inputs = document.querySelectorAll('.editable');
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            const index = this.getAttribute('data-index');
+            const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+            const campo = this.classList[1]; // Obtener el nombre del campo (dni, email, etc.)
+            usuarios[index][campo] = this.value;
+            // Guardar de nuevo en el localStorage
+            localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        });
+    });
 
     // Añadir un evento para manejar el cambio de los checkboxes
     const checkboxes = document.querySelectorAll('.verificado');

@@ -4,7 +4,7 @@ function iniciarSesion(event) {
 
     const usuario = document.getElementById("usuario").value;
     const contrasena = document.getElementById("contrasena").value;
-    // Buscar el usuario en localStorage
+    // Buscar el usuario en localStorage 
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuarioEncontrado = usuarios.find(
         (u) => u.usuario === usuario && u.contrasena === contrasena
@@ -116,14 +116,34 @@ function mostrarMensajeExamenCreado() {
 }
 });
 
-// Función para cargar preguntas en la tabla
-function cargarPreguntas() {
-    const preguntas = JSON.parse(localStorage.getItem('preguntas')) || []; // Obtener las preguntas guardadas en localStorage
-    const tablaPreguntas = document.getElementById('tablaPreguntas').getElementsByTagName('tbody')[0]; // Obtener el cuerpo de la tabla
-    tablaPreguntas.innerHTML = ''; // Limpiar la tabla antes de insertar nuevas filas
+// Función para cargar el select con categorías
+function cargarCategorias() {
+    const preguntas = JSON.parse(localStorage.getItem('preguntas')) || [];
+    //Esto ya si lo hemos visto en programacion funcional
+    const categorias = [...new Set(preguntas.map(pregunta => pregunta.categoria))]; 
+    const selectCategoria = document.getElementById('filtroCategoria');
 
-    preguntas.forEach((pregunta, index) => {
-        const fila = tablaPreguntas.insertRow(); // Crear una nueva fila en la tabla
+    categorias.forEach(categoria => {
+        const option = document.createElement('option');
+        option.value = categoria;
+        option.textContent = categoria;
+        selectCategoria.appendChild(option);
+    });
+}
+
+// Función para cargar preguntas en la tabla, con filtro de categoría
+function cargarPreguntas(categoriaFiltrada = '') {
+    const preguntas = JSON.parse(localStorage.getItem('preguntas')) || []; //  las preguntas guardadas en localStorage
+    const tablaPreguntas = document.getElementById('tablaPreguntas').getElementsByTagName('tbody')[0]; //  el cuerpo de la tabla
+    tablaPreguntas.innerHTML = ''; 
+
+    // Filtrar preguntas por categoría, si se ha seleccionado alguna, por defecto no
+    const preguntasFiltradas = categoriaFiltrada 
+        ? preguntas.filter(pregunta => pregunta.categoria === categoriaFiltrada) 
+        : preguntas;
+
+    preguntasFiltradas.forEach((pregunta, index) => {
+        const fila = tablaPreguntas.insertRow(); 
 
         // Crear la celda para la pregunta
         const celdaPregunta = fila.insertCell();
@@ -135,31 +155,37 @@ function cargarPreguntas() {
 
         // Crear la celda para la respuesta correcta
         const celdaRespuestaCorrecta = fila.insertCell();
-        const indiceRespuestaCorrecta = pregunta.respuestaCorrecta; // Obtener el índice de la respuesta correcta
+        const indiceRespuestaCorrecta = pregunta.respuestaCorrecta; 
 
         // Verificar si el índice de la respuesta correcta es válido y mostrarla
         if (indiceRespuestaCorrecta >= 0 && indiceRespuestaCorrecta < pregunta.opciones.length) {
             const respuestaCorrecta = pregunta.opciones[indiceRespuestaCorrecta]; 
             celdaRespuestaCorrecta.textContent = respuestaCorrecta.text;
         } else {
-            celdaRespuestaCorrecta.textContent = 'No definida'; // Mostrar 'No definida' si no hay respuesta correcta en caso de error
+            celdaRespuestaCorrecta.textContent = 'No definida'; 
         }
 
         // Crear la celda para la categoría
         const celdaCategoria = fila.insertCell();
-        celdaCategoria.textContent = pregunta.categoria; // Mostrar la categoría de la pregunta
-
+        celdaCategoria.textContent = pregunta.categoria; 
         // Crear la celda para el checkbox de selección de pregunta
         const celdaSeleccionar = fila.insertCell();
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.classList.add('seleccionarPregunta');
-        checkbox.setAttribute('data-index', index); // Establecer el índice como atributo
-        celdaSeleccionar.appendChild(checkbox); // Añadir el checkbox a la celda
+        checkbox.setAttribute('data-index', index); 
+        celdaSeleccionar.appendChild(checkbox); 
     });
 }
 
-// Cargar preguntas al cargar la página
+// Cargar preguntas y categorías al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
-    cargarPreguntas();
+    cargarCategorias(); // Cargar categorías al cargar la página
+    cargarPreguntas(); // Cargar todas las preguntas al inicio
+
+    // Filtrar preguntas por categoría cuando se cambie el select
+    document.getElementById('filtroCategoria').addEventListener('change', function () {
+        const categoriaSeleccionada = this.value;
+        cargarPreguntas(categoriaSeleccionada); 
+    });
 });

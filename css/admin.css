@@ -66,10 +66,26 @@ h1{
     box-sizing: border-box;
     text-align: center;
 }
-#examen{
+
+.boton {
+    display: inline-block;
+     padding: 10px 20px;
+     background-color: #0f76bb;
+     color: white;
+     text-decoration: none;
+     transition: background-color 0.3s, transform 0.3s; 
+     border-radius: 5px;
+     cursor: pointer;
+ }
+ .boton:hover {
+     background-color: #000000;
+     transform: scale(1.15);
+     color:#bbe1fa;
+ }
+ #logoutButton{
     display: inline-block;
     padding: 15px 30px; 
-    background-color: #0b881bfb; 
+    background-color: #000000fb; 
     color: white; 
     text-decoration: none;
     border-radius: 5px;
@@ -77,18 +93,10 @@ h1{
     transition: background-color 0.3s, transform 0.3s; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
-#examen:hover{
+#logoutButton:hover{
     background-color: #911911; 
     color: #bbe1fa; 
-    transform: scale(1.05);
-}
-.boton {
-   display: inline-block;
-    padding: 10px 20px;
-    background-color: #0f76bb;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
+    transform: scale(1.15);
 }
 #login {
     width: 100%;
@@ -105,9 +113,8 @@ h1{
     
     box-sizing: border-box;
 }
-.boton:hover {
-    background-color: #000000;
-    color:#bbe1fa;
+.imagen{  
+    width: 75px;
 }
 
 .pie-form {
@@ -149,7 +156,7 @@ h1{
 }
 /*Aquí los diseños de la tabla que generamos en js*/
 table {
-    border: 1px solid #000000;
+    border: 10px outset #0f76bb;
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
@@ -162,5 +169,5 @@ th, td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #1f6fa4;
 }

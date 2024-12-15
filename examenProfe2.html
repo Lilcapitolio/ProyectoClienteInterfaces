@@ -17,13 +17,14 @@
 <body>
     <div id="contenedor">
         <div id="central">
-            <div id="examenProfe">
+            <div id="login">
                 <nav>
+                    <img class="imagen" src="img/2.png">
                     <a class="boton" href="home.html">Inicio</a>
                     <a class="boton" href="notas.html">Calificaciones</a>
                     <a class="boton" href="profe.html">Panel Profesor</a>
                     <a class="boton" href="admin.html">Panel Administrador</a>
-                    <a class="boton" id="logoutButton" onclick=cerrarSesion() href="index.html">Log Out</a>
+                    <a id="logoutButton" onclick=cerrarSesion() href="index.html">Log Out</a>
                 </nav>
 
                 <!-- Crear Examen -->
@@ -32,6 +33,10 @@
                     <div id="contenido">
                         <form id="formularioCrearExamen">
                             <label class="test">Listado de preguntas disponibles</label>
+                            <select id="filtroCategoria">
+                                <option value="">No orden</option>
+                                <!-- Las opciones se agregarán dinámicamente -->
+                            </select>
                             <div id="preguntasContainer">
                                 <table id="tablaPreguntas" border="2" cellspacing="0" cellpadding="5">
                                     <thead>
@@ -61,6 +66,9 @@
         </div>
     </div>
     <script src="js/examenProfe2.js"></script>
+    <footer class="inferior">
+        Todos los derechos reservados por el autor de esta página web. Juan Manuel Zafra Hernández
+    </footer>
 </body>
 
 </html>
