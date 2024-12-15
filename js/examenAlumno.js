@@ -1,50 +1,17 @@
+//Buscamos al usuario dentro de usuarios con el find, estoy enamorado del find
 function iniciarSesion(event) {
     event.preventDefault();
-
     const usuario = document.getElementById("usuario").value;
     const contrasena = document.getElementById("contrasena").value;
-
-    // Usuarios simulados para login básico
-    if (usuario === "admin" && contrasena === "admin") {
-        const usuarioActivo = {
-            usuario: "admin",
-            contrasena: "admin",
-            rol: "administrador" // Puedes asignar un rol aquí si es necesario
-        };
-        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
-        alert("Inicio de sesión exitoso como admin.");
-        window.location.href = "pagina-protegida.html"; // Cambia al enlace de tu página protegida
-        return;
-    }
-
-    // Buscar el usuario en localStorage para otros casos
+    // Buscar el usuario en localStorage
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuarioEncontrado = usuarios.find(
         (u) => u.usuario === usuario && u.contrasena === contrasena
     );
-
-    if (usuarioEncontrado) {
-        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioEncontrado));
-        alert("Inicio de sesión exitoso.");
-        window.location.href = "pagina-protegida.html"; // Cambia al enlace de tu página protegida
-    } else {
-        alert("Usuario o contraseña incorrectos.");
-    }
 }
-
-// Ejemplo de uso en una página
-document.addEventListener("DOMContentLoaded", () => {
-    // Lista de roles permitidos para esta página
-    const rolesPermitidos = ["administrador", "profesor"]; // Cambia según la página
-
-    // Verificar acceso
-    verificarAccesoPagina(rolesPermitidos);
-});
-
-
-// Cargar exámenes desde localStorage
+    //verificamos la carga correcta de los examenes que ya haya creados o no
 function cargarExamenes() {
-    const examenes = JSON.parse(localStorage.getItem('examenes')) || [];
+    const examenes = JSON.parse(localStorage.getItem('examenCreado')) || [];
     const examenesContainer = document.getElementById('examenesContainer');
 
     // Verificar si hay exámenes
@@ -54,15 +21,22 @@ function cargarExamenes() {
     }
 
     examenes.forEach((examen, index) => {
+        if (!examen.id) {
+            examen.id = `examen_${index}`; 
+            // Actualizar el examen con el id único en el localStorage
+            localStorage.setItem('examenCreado', JSON.stringify(examenes));
+        }
+
         const divExamen = document.createElement('div');
         divExamen.classList.add('examen');
         divExamen.innerHTML = `
-            <p>Examen ${index + 1}</p>
+            <p>Examen: ${examen.id}</p>
             <button class="boton" onclick="iniciarExamen(${index})">Iniciar Examen</button>
         `;
         examenesContainer.appendChild(divExamen);
     });
 }
+//Esta función es para mostrar lo que cada rol permita ver
 document.addEventListener("DOMContentLoaded", function() {
     // Obtener el usuario activo del localStorage
     const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
@@ -70,12 +44,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Verificar si el usuario está logueado
     if (usuarioActivo) {
         // Mostrar el panel correspondiente según el rol
-        if (usuarioActivo.rol === "administrador") {
-            document.querySelector('a[href="admin.html"]').style.display = 'inline';  // Mostrar Panel Administrador
-            document.querySelector('a[href="profe.html"]').style.display = 'inline';  // Ocultar Panel Profesor
-        } else if (usuarioActivo.rol === "profesor") {
-            document.querySelector('a[href="profe.html"]').style.display = 'inline';  // Mostrar Panel Profesor
-            document.querySelector('a[href="admin.html"]').style.display = 'none';  // Ocultar Panel Administrador
+        if (usuarioActivo.rol === "administrador") { //el admin ve todo
+            document.querySelector('a[href="admin.html"]').style.display = 'inline';  
+            document.querySelector('a[href="profe.html"]').style.display = 'inline'; 
+        } else if (usuarioActivo.rol === "profesor") { //El profe solo ve lo del profe
+            document.querySelector('a[href="profe.html"]').style.display = 'inline'; 
+            document.querySelector('a[href="admin.html"]').style.display = 'none'; 
         } else {
             // Si es un alumno, puedes ocultar ambos paneles
             document.querySelector('a[href="profe.html"]').style.display = 'none';
@@ -89,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Función para iniciar el examen
 function iniciarExamen(index) {
-    const examenes = JSON.parse(localStorage.getItem('examenes')) || [];
+    const examenes = JSON.parse(localStorage.getItem('examenCreado')) || [];
     const examenSeleccionado = examenes[index];
 
     localStorage.setItem('examenActual', JSON.stringify(examenSeleccionado));

@@ -113,7 +113,15 @@ h1 {
     color:#bbe1fa;
 }
 /*Apartado de crear examenes y su css*/
-
+#mensajePreguntaCreada {
+    display: none;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
 
 #mensajeExamenCreado {
     display: none;

@@ -18,7 +18,7 @@ function crearUsuario(event) {
         return;
     }
 
-    // Validación de email
+    // Validación de email con regex es mas comodo
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         mensajeDivError.innerHTML = "Por favor, introduce un email válido";
@@ -33,7 +33,7 @@ function crearUsuario(event) {
         contrasena: contrasena,
         direccion: direccion,
         email: email,
-        rol: "" // Inicializamos el rol vacío
+        rol: '' // el rol vacio
     };
 
     // Obtener la lista de usuarios existente del localStorage

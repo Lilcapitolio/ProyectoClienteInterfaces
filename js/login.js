@@ -54,13 +54,13 @@ function iniciarSesion(event) {
 
         // Verificar el rol del usuario y redirigir según corresponda
         if (usuarioEncontrado.rol === "administrador") {
-            window.location.href = "admin.html";  // Redirigir al panel de administrador
+            window.location.href = "admin.html"; 
         } else if (usuarioEncontrado.rol === "profesor") {
-            window.location.href = "profe.html"; // Redirigir al panel de profesor
+            window.location.href = "profe.html"; 
         } else if (usuarioEncontrado.rol === "alumno") {
-            window.location.href = "home.html"; // Redirigir al panel del estudiante
+            window.location.href = "home.html"; 
         } else {
-            alert("Rol no reconocido.");
+            window.location.href = "home.html"; 
         }
     } else {
         // Si no se encuentra el usuario o la contraseña no es correcta

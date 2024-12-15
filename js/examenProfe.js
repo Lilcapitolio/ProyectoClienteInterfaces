@@ -4,26 +4,11 @@ function iniciarSesion(event) {
 
     const usuario = document.getElementById("usuario").value;
     const contrasena = document.getElementById("contrasena").value;
-
-    // Usuarios simulados para login básico (como ejemplo, lo puedes cambiar o eliminar si no es necesario)
-    if (usuario === "admin" && contrasena === "admin") {
-        const usuarioActivo = {
-            usuario: "admin",
-            contrasena: "admin",
-            rol: "administrador" // Asignar el rol de administrador
-        };
-        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
-        alert("Inicio de sesión exitoso como admin.");
-        window.location.href = "admin.html"; // Redirige al panel de administrador
-        return;
-    }
-
-    // Buscar el usuario en localStorage para otros casos
+    // Buscar el usuario en localStorage
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuarioEncontrado = usuarios.find(
         (u) => u.usuario === usuario && u.contrasena === contrasena
     );
-
     if (usuarioEncontrado) {
         localStorage.setItem("usuarioActivo", JSON.stringify(usuarioEncontrado));
         alert("Inicio de sesión exitoso.");
@@ -49,14 +34,14 @@ function verificarAccesoPagina(rolesPermitidos) {
 
     if (!usuarioActivo) {
         alert("Debe iniciar sesión para acceder a esta página.");
-        window.location.href = "login.html";  // Redirigir a la página de login si no está logueado
+        window.location.href = "login.html";  
         return;
     }
 
     // Verificar si el rol del usuario activo es uno de los roles permitidos
     if (!rolesPermitidos.includes(usuarioActivo.rol)) {
         alert("Acceso denegado. No tiene permisos suficientes.");
-        window.location.href = "index.html"; // Redirigir si no tiene permisos
+        window.location.href = "index.html"; 
         return;
     }
 }
@@ -68,11 +53,11 @@ function ajustarNavegacion() {
     if (usuarioActivo) {
         // Mostrar el panel correspondiente según el rol
         if (usuarioActivo.rol === "administrador") {
-            document.querySelector('a[href="admin.html"]').style.display = 'inline';  // Mostrar Panel Administrador
-            document.querySelector('a[href="profe.html"]').style.display = 'none';  // Ocultar Panel Profesor
+            document.querySelector('a[href="admin.html"]').style.display = 'inline'; 
+            document.querySelector('a[href="profe.html"]').style.display = 'none';  
         } else if (usuarioActivo.rol === "profesor") {
-            document.querySelector('a[href="profe.html"]').style.display = 'inline';  // Mostrar Panel Profesor
-            document.querySelector('a[href="admin.html"]').style.display = 'none';  // Ocultar Panel Administrador
+            document.querySelector('a[href="profe.html"]').style.display = 'inline'; 
+            document.querySelector('a[href="admin.html"]').style.display = 'none'; 
         } else {
             // Si es un alumno, ocultar ambos paneles
             document.querySelector('a[href="profe.html"]').style.display = 'none';
@@ -94,23 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Verificar acceso
     verificarAccesoPagina(rolesPermitidos);
 });
-
-
-// Ejemplo de uso en una página
-document.addEventListener("DOMContentLoaded", () => {
-    // Lista de roles permitidos para esta página
-    const rolesPermitidos = ["administrador", "profesor"]; // Cambia según la página
-
-    // Verificar acceso
-    verificarAccesoPagina(rolesPermitidos);
-});
 document.getElementById('formularioExamen').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const preguntaInput = document.getElementById('pregunta');
     const opcionesInputs = document.querySelectorAll('.respuesta');
     const respuestaCorrectaInput = document.querySelector('input[name="respuestaCorrecta"]:checked');
-    const categoriaSelect = document.getElementById('categoria');  // Obtener el select de categoría
+    const categoriaSelect = document.getElementById('categoria');  
 
     // Verificar si se seleccionó una respuesta correcta
     if (!respuestaCorrectaInput) {
@@ -119,7 +94,7 @@ document.getElementById('formularioExamen').addEventListener('submit', function 
     }
 
     // Encontrar el índice de la respuesta correcta
-    const respuestaCorrectaIndex = Array.from(opcionesInputs).findIndex(input => input === respuestaCorrectaInput);
+    const respuestaCorrectaIndex = Array.from(opcionesInputs).findIndex(input => input.id === respuestaCorrectaInput.id);
     
     // Verificar si el índice es correcto
     console.log("Índice de la respuesta correcta:", respuestaCorrectaIndex);
@@ -131,11 +106,11 @@ document.getElementById('formularioExamen').addEventListener('submit', function 
             text: input.value,
             id: `opcion${index + 1}`
         })),
-        respuestaCorrecta: respuestaCorrectaIndex, // Guardamos el índice de la respuesta correcta
-        categoria: categoriaSelect.value // Guardamos la categoría seleccionada
+        respuestaCorrecta: respuestaCorrectaIndex, 
+        categoria: categoriaSelect.value
     };
 
-    console.log("Pregunta creada:", nuevaPregunta); // Verificar la estructura de la nueva pregunta
+    console.log("Pregunta creada:", nuevaPregunta);
 
     // Obtener las preguntas existentes desde localStorage
     const preguntas = JSON.parse(localStorage.getItem('preguntas')) || [];
@@ -146,10 +121,8 @@ document.getElementById('formularioExamen').addEventListener('submit', function 
     preguntaInput.value = '';
     opcionesInputs.forEach(input => (input.value = ''));
     respuestaCorrectaInput.checked = false;
-    categoriaSelect.value = 'facil'; // Resetear la categoría a "fácil" después de enviar
-
+    categoriaSelect.value = 'facil'; 
     mostrarMensajePreguntaCreado();
-    cargarPreguntas();
 });
 
 // Función para mostrar el mensaje de pregunta creada con éxito
@@ -161,3 +134,4 @@ function mostrarMensajePreguntaCreado() {
         mensajePreguntaCreada.style.display = 'none';
     }, 3000);
 }
+

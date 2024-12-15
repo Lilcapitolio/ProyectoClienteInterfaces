@@ -30,11 +30,11 @@ function iniciarSesion(event) {
 
         // Verificar el rol del usuario y redirigir según corresponda
         if (usuarioEncontrado.rol === "administrador") {
-            window.location.href = "admin.html";  // Redirigir al panel de administrador
+            window.location.href = "admin.html";  
         } else if (usuarioEncontrado.rol === "profesor") {
-            window.location.href = "profe.html"; // Redirigir al panel de profesor
+            window.location.href = "profe.html"; 
         } else if (usuarioEncontrado.rol === "alumno") {
-            window.location.href = "alumno.html"; // Redirigir al panel del estudiante
+            window.location.href = "alumno.html";
         } else {
             alert("Rol no reconocido.");
         }
@@ -49,24 +49,20 @@ function verificarAccesoPagina(rolesPermitidos) {
 
     if (!usuarioActivo) {
         alert("Debe iniciar sesión para acceder a esta página.");
-        window.location.href = "login.html";  // Redirigir a la página de login si no está logueado
+        window.location.href = "login.html";  
         return;
     }
 
     // Verificar si el rol del usuario activo es uno de los roles permitidos
     if (!rolesPermitidos.includes(usuarioActivo.rol)) {
         alert("Acceso denegado. No tiene permisos suficientes.");
-        window.location.href = "index.html"; // Redirigir si no tiene permisos
+        window.location.href = "index.html"; 
         return;
     }
 }
-
-// Ejemplo de uso en una página protegida
 document.addEventListener("DOMContentLoaded", () => {
     // Lista de roles permitidos para esta página
-    const rolesPermitidos = ["administrador"]; // Cambia según la página
-
-    // Verificar acceso
+    const rolesPermitidos = ["administrador"]; // Cambia según la página, si añadimos los roles que pueden optar a esas paginas
     verificarAccesoPagina(rolesPermitidos);
 });
 
@@ -85,7 +81,7 @@ function mostrarUsuarios() {
     tabla += '<tbody>';
     usuarios.forEach((usuario, index) => {
         const verificado = usuario.verificado ? 'checked' : '';
-        const rol = usuario.rol || 'alumno'; // Asignar un rol por defecto si no existe
+        const rol = usuario.rol = 'alumno'; // Asignar un rol por defecto si no existe, el cual tiene un bug, y es que aún como esta programado, no auto asigna el rol de alumno, no se porque la verdad lo dejare para la 1.1
 
         tabla += `<tr>
                     <td>${index + 1}</td>
@@ -110,7 +106,7 @@ function mostrarUsuarios() {
     // Insertar la tabla en el div
     tablaDiv.innerHTML = tabla;
 
-    // Añadir un evento para manejar el cambio de estado de los checkboxes
+    // Añadir un evento para manejar el cambio de los checkboxes
     const checkboxes = document.querySelectorAll('.verificado');
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
@@ -123,7 +119,7 @@ function mostrarUsuarios() {
         });
     });
 
-    // Añadir un evento para manejar el cambio de rol
+    // Añadir un evento para el cambio de rol
     const selects = document.querySelectorAll('.rol');
     selects.forEach(select => {
         select.addEventListener('change', function() {

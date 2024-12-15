@@ -4,21 +4,7 @@ function iniciarSesion(event) {
 
     const usuario = document.getElementById("usuario").value;
     const contrasena = document.getElementById("contrasena").value;
-
-    // Usuarios simulados para login básico (como ejemplo, lo puedes cambiar o eliminar si no es necesario)
-    if (usuario === "admin" && contrasena === "admin") {
-        const usuarioActivo = {
-            usuario: "admin",
-            contrasena: "admin",
-            rol: "administrador" // Asignar el rol de administrador
-        };
-        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioActivo));
-        alert("Inicio de sesión exitoso como admin.");
-        window.location.href = "pagina-admin.html"; // Redirige al panel de administrador
-        return;
-    }
-
-    // Buscar el usuario en localStorage para otros casos
+    // Buscar el usuario en localStorage
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuarioEncontrado = usuarios.find(
         (u) => u.usuario === usuario && u.contrasena === contrasena
@@ -30,11 +16,11 @@ function iniciarSesion(event) {
 
         // Verificar el rol del usuario y redirigir según corresponda
         if (usuarioEncontrado.rol === "administrador") {
-            window.location.href = "admin";  // Redirigir al panel de administrador
+            window.location.href = "admin"; 
         } else if (usuarioEncontrado.rol === "profesor") {
-            window.location.href = "profe.html"; // Redirigir al panel de profesor
+            window.location.href = "profe.html"; 
         } else if (usuarioEncontrado.rol === "alumno") {
-            window.location.href = "home.html"; // Redirigir al panel del estudiante
+            window.location.href = "home.html";
         } else {
             alert("Rol no reconocido.");
         }
@@ -49,14 +35,14 @@ function verificarAccesoPagina(rolesPermitidos) {
 
     if (!usuarioActivo) {
         alert("Debe iniciar sesión para acceder a esta página.");
-        window.location.href = "login.html";  // Redirigir a la página de login si no está logueado
+        window.location.href = "login.html";  
         return;
     }
 
     // Verificar si el rol del usuario activo es uno de los roles permitidos
     if (!rolesPermitidos.includes(usuarioActivo.rol)) {
         alert("Acceso denegado. No tiene permisos suficientes.");
-        window.location.href = "pagina-no-autorizada.html"; // Redirigir si no tiene permisos
+        window.location.href = "index.html"; 
         return;
     }
 }
@@ -64,7 +50,7 @@ function verificarAccesoPagina(rolesPermitidos) {
 // Ejemplo de uso en una página protegida
 document.addEventListener("DOMContentLoaded", () => {
     // Lista de roles permitidos para esta página
-    const rolesPermitidos = ["administrador", "profesor","alumno"]; // Cambia según la página
+    const rolesPermitidos = ["administrador", "profesor","alumno"]; 
 
     // Verificar acceso
     verificarAccesoPagina(rolesPermitidos);
@@ -78,11 +64,11 @@ document.addEventListener("DOMContentLoaded", function() {
     if (usuarioActivo) {
         // Mostrar el panel correspondiente según el rol
         if (usuarioActivo.rol === "administrador") {
-            document.querySelector('a[href="admin.html"]').style.display = 'inline';  // Mostrar Panel Administrador
-            document.querySelector('a[href="profe.html"]').style.display = 'none';  // Ocultar Panel Profesor
+            document.querySelector('a[href="admin.html"]').style.display = 'inline';  
+            document.querySelector('a[href="profe.html"]').style.display = 'inline';  
         } else if (usuarioActivo.rol === "profesor") {
-            document.querySelector('a[href="profe.html"]').style.display = 'inline';  // Mostrar Panel Profesor
-            document.querySelector('a[href="admin.html"]').style.display = 'none';  // Ocultar Panel Administrador
+            document.querySelector('a[href="profe.html"]').style.display = 'inline';  
+            document.querySelector('a[href="admin.html"]').style.display = 'none';  
         } else {
             // Si es un alumno, puedes ocultar ambos paneles
             document.querySelector('a[href="profe.html"]').style.display = 'none';
